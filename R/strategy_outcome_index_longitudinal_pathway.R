@@ -75,13 +75,19 @@ strategy_longitudinal <- function(data, y, x, z, id, time, n, audit, spec) {
 #' @keywords internal
 strategy_pathway <- function(data, y, x, z, model, family, n, audit, spec) {
   if (!length(x)) stop("`pathway` requires X and Y.")
-  mZ <- if (length(z)) fit_model(data, y, character(0), z, model, family) else NULL
+  mZ  <- if (length(z)) fit_model(data, y, character(0), z, model, family) else NULL
   mXZ <- fit_model(data, y, x, z, model, family)
   augXZ <- augment_residuals(mXZ)
 
-  # simple per-row proxy using absolute residual from Z-only (if available); smaller residual => 'conservative' Z
+  # proxy for "conservative Z": small residual under Z-only model (if available)
   prox <- if (!is.null(mZ)) abs(augment_residuals(mZ)$`.resid`) else rep(0, nrow(data))
 
   out <- data
   out$score <- 1 / (1 + abs(augXZ$.resid) + prox)
-  ou
+  out$why <- sprintf("Strong X→Y & Z conservative proxy; resid=%.3f", abs(augXZ$.resid))
+  ord <- out[order(-out$score), , drop = FALSE]
+  audit <- c(audit,
+             mk_audit(5, "Fitted Z-only and X+Z model."),
+             mk_audit(6, "Ranked by pathway proxy (strong X→Y & conservative Z)."))
+  new_csel(utils::head(ord[, c(names(data), "score", "why")], n), spec, model = mXZ, distances = NULL, audit = audit)
+}
