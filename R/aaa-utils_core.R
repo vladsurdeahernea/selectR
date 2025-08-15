@@ -1,7 +1,7 @@
 #' @keywords internal
 is_binary <- function(v) {
   u <- unique(stats::na.omit(v))
-  length(u) == 2 && all(u %in% c(0,1) | all(u %in% c(FALSE, TRUE)))
+  length(u) == 2 && (all(u %in% c(0, 1)) || all(u %in% c(FALSE, TRUE)))
 }
 
 #' @keywords internal
@@ -12,19 +12,18 @@ coerce_df <- function(data) {
 
 #' @keywords internal
 std_numeric <- function(df, vars) {
-  if (!length(vars)) return(list(X = NULL, cols = character(0))))
+  if (!length(vars)) return(list(X = NULL, cols = character(0)))
   cols <- vars
   X <- df[, cols, drop = FALSE]
   # keep only numeric; drop others quietly
   num_cols <- cols[sapply(X, is.numeric)]
-  if (!length(num_cols)) return(list(X = NULL, cols = character(0))))
+  if (!length(num_cols)) return(list(X = NULL, cols = character(0)))
   Xn <- scale(as.matrix(df[, num_cols, drop = FALSE]))
   list(X = Xn, cols = num_cols)
 }
 
 #' @keywords internal
 safe_cov <- function(X) {
-  # robust-ish covariance for Mahalanobis; fallback to diagonal if singular
   S <- try(stats::cov(X, use = "pairwise.complete.obs"), silent = TRUE)
   if (inherits(S, "try-error")) {
     S <- diag(apply(X, 2, stats::var, na.rm = TRUE))
@@ -37,8 +36,7 @@ safe_cov <- function(X) {
 
 #' @keywords internal
 mahal_matrix <- function(X) {
-  # returns pairwise Mahalanobis distances on numeric standardized X
-  if (is.null(X) || ncol(X) == 0) return(matrix(0, nrow = nrow(X), ncol = nrow(X)))
+  if (is.null(X) || ncol(X) == 0 || nrow(X) == 0) return(matrix(0, 0, 0))
   S <- safe_cov(X)
   S_inv <- solve(S)
   n <- nrow(X)
@@ -52,7 +50,7 @@ mahal_matrix <- function(X) {
 
 #' @keywords internal
 pair_index <- function(n) {
-  # all unordered pairs (i<j)
+  if (n < 2) return(data.frame(i = integer(0), j = integer(0)))
   comb <- utils::combn(n, 2)
   data.frame(i = comb[1, ], j = comb[2, ], stringsAsFactors = FALSE)
 }
