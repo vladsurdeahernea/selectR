@@ -4,7 +4,7 @@ Algorithmic case selection for intensive within-case analysis in R.
 
 ```r
 # install from source
-# remotes::install_github("your-org/caseselectR")
+# remotes::install_github("vladsurdeahernea/selectR")
 library(caseselectR)
 data(toy_cross, package = "caseselectR")
 
