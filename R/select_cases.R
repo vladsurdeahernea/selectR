@@ -69,4 +69,80 @@ select_cases <- function(
     extreme        = strategy_extreme(data, y, x, z, n, quantiles, audit, spec),
     diverse        = strategy_diverse(data, y, x, z, n, quantiles, audit, spec),
     influential    = strategy_influential(data, y, x, z, model, family, n, audit, spec),
-    most_similar_expl = strategy_most_similar(data, y, x, z, n, distance, mode = "exploratory", audit
+    most_similar_expl = strategy_most_similar(data, y, x, z, n, distance, mode = "exploratory", audit, spec),
+    ms_expl        = strategy_most_similar(data, y, x, z, n, distance, mode = "exploratory", audit, spec),
+    most_similar_est  = strategy_most_similar(data, y, x, z, n, distance, mode = "estimating", audit, spec),
+    ms_est         = strategy_most_similar(data, y, x, z, n, distance, mode = "estimating", audit, spec),
+    most_different = strategy_most_different(data, y, x, z, n, distance, audit, spec),
+    md             = strategy_most_different(data, y, x, z, n, distance, audit, spec),
+    outcome        = strategy_outcome(data, y, n, audit, spec),
+    index          = strategy_index(data, y, id_name, time_name, n, audit, spec),
+    longitudinal   = strategy_longitudinal(data, y, x, z, id_name, time_name, n, audit, spec),
+    pathway        = strategy_pathway(data, y, x, z, model, family, n, audit, spec),
+    stop("Unknown `type`: ", type)
+  )
+
+  out
+}
+
+# --- Convenience wrappers (no tidy-eval) ---------------------------------
+
+#' @export
+typical_case <- function(data, formula, n = 1, model = "lm", family = NULL, seed = NULL) {
+  select_cases(data, formula, type = "typical", n = n, model = model, family = family, seed = seed)
+}
+
+#' @export
+deviant_cases <- function(data, formula, n = 1, model = "lm", family = NULL, seed = NULL) {
+  select_cases(data, formula, type = "deviant", n = n, model = model, family = family, seed = seed)
+}
+
+#' @export
+extreme_cases <- function(data, formula, n = 2, quantiles = c(0.05, 0.95), seed = NULL) {
+  select_cases(data, formula, type = "extreme", n = n, quantiles = quantiles, seed = seed)
+}
+
+#' @export
+diverse_cases <- function(data, formula, n = 3, quantiles = c(0.1, 0.5, 0.9), seed = NULL) {
+  select_cases(data, formula, type = "diverse", n = n, quantiles = quantiles, seed = seed)
+}
+
+#' @export
+influential_cases <- function(data, formula, n = 1, model = "lm", family = NULL, seed = NULL) {
+  select_cases(data, formula, type = "influential", n = n, model = model, family = family, seed = seed)
+}
+
+#' @export
+ms_cases_expl <- function(data, formula, n = 1, distance = "mahalanobis", seed = NULL) {
+  select_cases(data, formula, type = "most_similar_expl", n = n, distance = distance, seed = seed)
+}
+
+#' @export
+ms_cases_est <- function(data, formula, n = 1, distance = "mahalanobis", seed = NULL) {
+  select_cases(data, formula, type = "most_similar_est", n = n, distance = distance, seed = seed)
+}
+
+#' @export
+md_cases <- function(data, formula, n = 1, distance = "mahalanobis", seed = NULL) {
+  select_cases(data, formula, type = "most_different", n = n, distance = distance, seed = seed)
+}
+
+#' @export
+outcome_cases <- function(data, formula, n = 2, seed = NULL) {
+  select_cases(data, formula, type = "outcome", n = n, seed = seed)
+}
+
+#' @export
+index_cases <- function(data, formula, id, time, n = 1, seed = NULL) {
+  select_cases(data, formula, type = "index", id = id, time = time, n = n, seed = seed)
+}
+
+#' @export
+longitudinal_cases <- function(data, formula, id, time, n = 1, seed = NULL) {
+  select_cases(data, formula, type = "longitudinal", id = id, time = time, n = n, seed = seed)
+}
+
+#' @export
+pathway_cases <- function(data, formula, n = 1, model = "lm", family = NULL, seed = NULL) {
+  select_cases(data, formula, type = "pathway", n = n, model = model, family = family, seed = seed)
+}
