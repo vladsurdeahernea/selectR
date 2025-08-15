@@ -1,8 +1,6 @@
 # caseselectR <img src="man/figures/logo.png" align="right" width="120" />
 
 [![R-CMD-check](https://github.com/vladsurdeahernea/selectR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/vladsurdeahernea/selectR/actions/workflows/R-CMD-check.yaml)
-[![r-universe](https://vladsurdeahernea.r-universe.dev/badges/caseselectR)](https://vladsurdeahernea.r-universe.dev)
-[![CRAN status](https://www.r-pkg.org/badges/version/caseselectR)](https://cran.r-project.org/package=caseselectR)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ---
