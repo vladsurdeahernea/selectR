@@ -1,7 +1,3 @@
----
-output: github_document
----
-
 # caseselectR
 
 Algorithmic case selection for intensive within-case analysis in R.
