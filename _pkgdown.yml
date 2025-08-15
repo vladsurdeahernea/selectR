@@ -1,0 +1,55 @@
+template:
+  bootstrap: 5
+  bootswatch: minty
+
+url: https://your-org.github.io/caseselectR
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [github]
+  components:
+    intro:
+      text: "Get started"
+      href: index.html
+    reference:
+      text: "Reference"
+      href: reference/index.html
+    articles:
+      text: "Articles"
+      menu:
+        - text: "Case-selection strategies walkthrough"
+          href: articles/strategies.html
+        - text: "Panel workflows (longitudinal, index)"
+          href: articles/panel.html
+        - text: "Transparency & audit logs"
+          href: articles/transparency.html
+    news:
+      text: "News"
+      href: news/index.html
+    github:
+      icon: fab fa-github
+      href: https://github.com/your-org/caseselectR
+
+reference:
+  - title: "Unified engine"
+    contents:
+      - select_cases
+  - title: "Convenience wrappers"
+    contents:
+      - typical_case
+      - deviant_cases
+      - extreme_cases
+      - diverse_cases
+      - influential_cases
+      - ms_cases_expl
+      - ms_cases_est
+      - md_cases
+      - outcome_cases
+      - index_cases
+      - longitudinal_cases
+      - pathway_cases
+  - title: "Data"
+    contents:
+      - toy_cross
+      - toy_panel
