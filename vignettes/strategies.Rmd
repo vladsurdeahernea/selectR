@@ -1,0 +1,54 @@
+---
+title: "Case-selection strategies walkthrough"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Case-selection strategies walkthrough}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(caseselectR)
+
+data(toy_cross, package = "caseselectR")
+typ <- typical_case(toy_cross, Y ~ X | Z1 + Z2)
+dev <- deviant_cases(toy_cross, Y ~ X | Z1 + Z2, n = 2)
+typ; head(dev$results)
+
+### vignettes/panel.Rmd
+```r
+---
+title: "Panel workflows (longitudinal, index)"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Panel workflows (longitudinal, index)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(caseselectR)
+data(toy_panel, package = "caseselectR")
+long <- longitudinal_cases(toy_panel, Y ~ X | Z1, id = unit, time = t, n = 2)
+idx  <- index_cases(toy_panel, Y ~ X | Z1, id = unit, time = t)
+long; idx
+
+### vignettes/transparency.Rmd
+```r
+---
+title: "Transparency & audit logs"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Transparency & audit logs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(caseselectR)
+data(toy_cross, package = "caseselectR")
+res <- typical_case(toy_cross, Y ~ X | Z1 + Z2, seed = 123)
+res$audit_log   # Reproducible 7-step audit trail
