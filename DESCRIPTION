@@ -1,0 +1,33 @@
+Package: caseselectR
+Type: Package
+Title: Algorithmic Case Selection for Intensive Within-Case Analysis
+Version: 0.0.0.9000
+Authors@R: c(
+    person(given = "Your", family = "Name", role = c("aut","cre"),
+           email = "you@example.com", comment = c(ORCID = "0000-0000-0000-0000"))
+)
+Description: Tools to propose "best" case(s) or pairs of cases for intensive within-case analysis,
+    based on a transparent, algorithmic mapping of classic case-selection strategies:
+    typical, diverse, extreme, deviant, influential, most-similar, most-different, outcome, index,
+    longitudinal, and pathway. The API follows a formula-first design (Y ~ X | Z1 + Z2 + ...),
+    returns ranked candidates with scores and rationales, and records a 7-step audit log for transparency.
+    Methods reflect the goals/strategies typology and selection constraints in Table 1 of Gerring & Cojocaru (2016),
+    and the quantitative procedures in Seawright & Gerring (2008).
+License: MIT + file LICENSE
+URL: https://github.com/your-org/caseselectR
+BugReports: https://github.com/your-org/caseselectR/issues
+Depends: R (>= 3.6)
+Imports:
+    stats,
+    utils,
+    methods
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    ggplot2
+VignetteBuilder: knitr
+Encoding: UTF-8
+Language: en-US
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
