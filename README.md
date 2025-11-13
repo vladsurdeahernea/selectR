@@ -23,20 +23,6 @@ With a formula-first API (`Y ~ X | Z1 + Z2 + ...`), the package:
 
 ## Installation
 
-**CRAN (after acceptance):**
-```r
-install.packages("caseselectR")
-```
-
-**Latest development build (no Rtools/Xcode needed via r-universe):**
-```r
-options(repos = c(
-  vlad = "https://vladsurdeahernea.r-universe.dev",
-  CRAN = "https://cloud.r-project.org"
-))
-install.packages("caseselectR")
-```
-
 **From GitHub (requires build tools):**
 ```r
 remotes::install_github("vladsurdeahernea/selectR")
